@@ -12,7 +12,7 @@ public class LaunchHomePage {
 	public void homePage()
 	
 	{
-		System.setProperty("webdriver.chrome.driver", "H:\\Practice\\com.learning.selenium\\src\\test\\resources\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
 		
 		WebDriver driver=new ChromeDriver();
 		driver.get("https://www.ftd.com");

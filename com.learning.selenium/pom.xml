@@ -4,7 +4,7 @@
   <artifactId>com.learning.selenium</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
-<suiteXmlFile>H:\Practice\com.learning.selenium\src\test\resources\testng.xml</suiteXmlFile>
+<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
  
 </properties>
   <dependencies>
