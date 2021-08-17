@@ -12,7 +12,7 @@ public class LaunchHomePage {
 	public void homePage()
 	
 	{
-		//add new comment to check git commit
+		
 		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
 		
 		WebDriver driver=new ChromeDriver();
