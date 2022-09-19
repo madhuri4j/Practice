@@ -39,10 +39,8 @@ public class AddressPage {
 		type.click();
 		Select selectLocationType = new Select(type);
 		selectLocationType.selectByValue(typeOfLocation);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(rcpntFname));
-		driver.findElement(rcpntFname).sendKeys("test");
-		driver.findElement(rcpntLname).sendKeys("test");
-		if (typeOfLocation.equalsIgnoreCase("business")) {
+		
+		if (typeOfLocation.equalsIgnoreCase("Business")) {
 			driver.findElement(companyOrBusinessName).sendKeys("Hello world solutions");
 			// driver.findElement(city).sendKeys("Albany",Keys.ENTER);
 			driver.findElement(rcpntStreet).sendKeys("420 ");
@@ -64,6 +62,9 @@ public class AddressPage {
 			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(suggestion1));
 			driver.findElement(suggestion1).click();
 		}
+		wait.until(ExpectedConditions.visibilityOfElementLocated(rcpntFname));
+		driver.findElement(rcpntFname).sendKeys("test");
+		driver.findElement(rcpntLname).sendKeys("test");
 		driver.findElement(rcpntapmnt).sendKeys("419");
 		driver.findElement(deliveryPhnNum).sendKeys("9876543219");
 		selectOccasion(occasion);

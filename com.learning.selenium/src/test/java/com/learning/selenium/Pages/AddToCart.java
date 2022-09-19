@@ -1,10 +1,16 @@
 package com.learning.selenium.Pages;
 
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AddToCart {
@@ -55,7 +61,13 @@ public class AddToCart {
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(shopNow));
 		driver.findElement(shopNow).click();
+		try {
 		retryingFindClick(Bouquet1);
+		}
+		catch(Exception e)
+		{
+			System.out.println("exception"+e);
+		}
 		Thread.sleep(3000);
 		int a = driver.findElements(dateVerification).size();
 		driver.findElement(bouquetType).click();
@@ -101,12 +113,15 @@ public class AddToCart {
 	public boolean retryingFindClick(By by) {
 		boolean result = false;
 		int attempts = 0;
+		WebDriverWait wait2 = null;
 		while (attempts < 2) {
 			try {
-				driver.findElement(by).click();
+				wait2.until(ExpectedConditions.elementToBeClickable(by)).click();
+				
 				result = true;
 				break;
-			} catch (StaleElementReferenceException e) {
+			} catch (Exception e) {
+				System.out.println("the exception is"+e);
 			}
 			attempts++;
 		}
