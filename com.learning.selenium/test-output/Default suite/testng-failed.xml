@@ -5,8 +5,8 @@
     <classes>
       <class name="com.learning.selenium.Testcases.SmokeTests">
         <methods>
-          <include name="birthdayOrder"/>
           <include name="loadSite"/>
+          <include name="funeralOrder"/>
         </methods>
       </class> <!-- com.learning.selenium.Testcases.SmokeTests -->
     </classes>

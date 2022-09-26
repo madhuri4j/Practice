@@ -1,22 +1,17 @@
 package com.learning.selenium.Pages;
 
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.learning.selenium.Utilities.RetryClickElement;
 
 public class AddToCart {
 
 	public WebDriver driver;
-
+	RetryClickElement obj1=new RetryClickElement(driver);
 	public AddToCart(WebDriver driver) {
 		this.driver = driver;
 	}
@@ -62,28 +57,15 @@ public class AddToCart {
 		wait.until(ExpectedConditions.elementToBeClickable(shopNow));
 		driver.findElement(shopNow).click();
 		try {
-		retryingFindClick(Bouquet1);
+		obj1.retryingFindClick(Bouquet1,driver);
 		}
 		catch(Exception e)
 		{
 			System.out.println("exception"+e);
 		}
-		Thread.sleep(3000);
-		int a = driver.findElements(dateVerification).size();
-		driver.findElement(bouquetType).click();
+		obj1.retryingFindClick(bouquetType, driver);
+		wait.until(ExpectedConditions.elementToBeClickable(addToCart));
 		driver.findElement(addToCart).click();
-	/*	if (a == 1) {
-
-		}
-
-		else
-
-		{
-			wait.until(ExpectedConditions.visibilityOfElementLocated(zipcode));
-			driver.findElement(zipcode).sendKeys("12205", Keys.ENTER);
-			wait.until(ExpectedConditions.elementToBeClickable(deliverTo));
-			driver.findElement(deliverTo).sendKeys(Keys.ENTER);
-		}*/
 		addon(addons);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(checkout));
 		driver.findElement(checkout).click();
@@ -91,40 +73,19 @@ public class AddToCart {
 	}
 
 	public WebDriver addon(String addon) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
 		if (addon.equalsIgnoreCase("balloon")) {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(balloonAddon));
-			driver.findElement(balloonAddon).click();
+			obj1.retryingFindClick(balloonAddon,driver);
 		} else if (addon.equalsIgnoreCase("greetingCard")) {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(greetingAddon));
-			driver.findElement(greetingAddon).click();
+			obj1.retryingFindClick(greetingAddon,driver);
 		} else if (addon.equalsIgnoreCase("teddybear")) {
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(teddyBearAddon));
-			driver.findElement(teddyBearAddon).click();
+			obj1.retryingFindClick(teddyBearAddon,driver);
 		} else if (addon.equalsIgnoreCase("chocolates")) {
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(chocolatesAddon));
-			driver.findElement(chocolatesAddon).click();
+			obj1.retryingFindClick(chocolatesAddon,driver);
 		} else if (addon.equalsIgnoreCase("")) {
 			System.out.println("addon not requested");
 		}
 		return driver;
 	}
 
-	public boolean retryingFindClick(By by) {
-		boolean result = false;
-		int attempts = 0;
-		WebDriverWait wait2 = null;
-		while (attempts < 2) {
-			try {
-				wait2.until(ExpectedConditions.elementToBeClickable(by)).click();
-				
-				result = true;
-				break;
-			} catch (Exception e) {
-				System.out.println("the exception is"+e);
-			}
-			attempts++;
-		}
-		return result;
-	}
+
 }

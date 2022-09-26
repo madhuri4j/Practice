@@ -39,7 +39,7 @@ public class SmokeTests {
 		driver.quit();
 	}
 
-	/*@Test
+	@Test
 	public void sundayOrder() throws InterruptedException {
 		loadSite();
 		obj1 = new AddToCart(driver);
@@ -65,7 +65,7 @@ public class SmokeTests {
 		obj4 = new BillingInfo(driver);
 		obj4.billingNotEqualRecipient();
 		driver.quit();
-	}*/
+	}
 	
 	
 	

@@ -3,14 +3,16 @@ package com.learning.selenium.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.learning.selenium.Utilities.RetryClickElement;
+
 public class BillingInfo {
 	WebDriver driver;
-	By billingSameAsRecipient = By.xpath("//*[@for='use-delivery-address']");
-	By placeYourOrder = By.xpath("(//*[text()='Place Your Order'])[1]");
+	RetryClickElement obj1=new RetryClickElement(driver);
+	By billingSameAsRecipient = By.xpath("//*[@id='checkout_different_billing_address_false']");
+	By placeYourOrder = By.xpath("(//*[text()='Place Order'])[1]");
 	By firstName=By.xpath("//*[@id='firstName']");
 	By lastName=By.xpath("//*[@id='lastName']");
 	By streetAddress= By.xpath("//*[@placeholder='Street Address']");
@@ -25,7 +27,10 @@ public class BillingInfo {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.elementToBeClickable(billingSameAsRecipient));
 		driver.findElement(billingSameAsRecipient).click();
-		driver.findElement(placeYourOrder).click();
+		obj1.retryingFindClick(bilingPhoneNum, driver);
+		driver.findElement(bilingPhoneNum).sendKeys("5678902341");
+		wait.until(ExpectedConditions.elementToBeClickable(placeYourOrder));
+		obj1.retryingFindClick(placeYourOrder,driver);
 		return driver;
 	}
 	
@@ -37,7 +42,7 @@ public class BillingInfo {
 		driver.findElement(zipcode).sendKeys("12205",Keys.ENTER);
 		driver.findElement(city).sendKeys("Albany");
 		driver.findElement(bilingPhoneNum).sendKeys("9999999999");
-		driver.findElement(placeYourOrder).click();
+		obj1.retryingFindClick(placeYourOrder,driver);
 		return driver;
 		
 	}
