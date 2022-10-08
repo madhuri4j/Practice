@@ -1,6 +1,7 @@
 package com.learning.selenium.Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,11 +14,12 @@ public class AddressPage {
 	By rcpntFname = By.xpath("(//*[@name='checkout[shipping_address][first_name]'])[2]");
 	By rcpntLname = By.xpath("(//*[@name='checkout[shipping_address][last_name]'])[2]");
 	By timeOfVisitation = By.xpath("(//*[contains(@name,'visitation')])[1]");
-	By companyOrBusinessName = By.xpath("//*[@placeholder='Company/Business Name']");
+	By timeOfVisitationList=By.xpath("//select[@id='checkout_shipping_address_visitation_timing']");
+	By companyOrBusinessName = By.xpath("//*[@placeholder='Business Name']");
 	By rcpntStreet = By.xpath("//*[@placeholder='Address Line 1']");
 	By addressSuggestionBusiness = By.xpath("(//*[@class='fs-mask'])[5]");
 	By suggestion1 = By.xpath("(//div[@class='suggestion-item'])[1]");
-	By facilitySuggesstion = By.xpath("//*[contains(@data-addresssuggestion,'facility')][1]");
+	By facilitySuggesstion = By.xpath("//*[@placeholder='Business Name']");
 	By rcpntapmnt = By.xpath("//*[@placeholder='Address Line 2 (optional)']");
 	By city = By.xpath("//*[@placeholder='City']");
 	By occasionSelect = By.xpath("//select[@id='checkout_shipping_address_occasion']");
@@ -45,16 +47,21 @@ public class AddressPage {
 			driver.findElement(companyOrBusinessName).sendKeys("Hello world solutions");
 			// driver.findElement(city).sendKeys("Albany",Keys.ENTER);
 			driver.findElement(rcpntStreet).sendKeys("420 ");
-			Thread.sleep(3000);
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(addressSuggestionBusiness));
-			driver.findElement(addressSuggestionBusiness).click();
-		} else if (typeOfLocation.equalsIgnoreCase("funeral")) {
-			Select s = new Select(driver.findElement(timeOfVisitation));
+			wait.until(ExpectedConditions.elementToBeClickable(suggestion1));
+			driver.findElement(suggestion1).click();
+		} else if (typeOfLocation.equalsIgnoreCase("Funeral Home")) {
+			wait.until(ExpectedConditions.elementToBeClickable(timeOfVisitation));
+			driver.findElement(timeOfVisitation).click();
+			wait.until(ExpectedConditions.elementToBeClickable(timeOfVisitationList));
+			Select s = new Select(driver.findElement(timeOfVisitationList));
 			s.selectByValue("16:30");
-			driver.findElement(rcpntStreet).sendKeys("a");
-			Thread.sleep(3000);
-			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(facilitySuggesstion));
-			driver.findElement(facilitySuggesstion).click();
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(facilitySuggesstion));
+			WebElement facilty=driver.findElement(facilitySuggesstion);
+			facilty.sendKeys(" ");
+			driver.findElement(By.xpath("(//div[@class='suggestion-item'])[1]")).click();
+			//facilty.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+			
 		}
 
 		else if (typeOfLocation.equalsIgnoreCase("Residence")) {

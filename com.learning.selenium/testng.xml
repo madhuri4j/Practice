@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="com.learning.selenium.Testcases.BirthdayOrder"/>
+      <class name="com.learning.selenium.Testcases.sundayOrder"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

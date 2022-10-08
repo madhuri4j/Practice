@@ -11,6 +11,7 @@ import com.learning.selenium.Utilities.RetryClickElement;
 public class AddToCart {
 
 	public WebDriver driver;
+	public boolean clickSucess;
 	RetryClickElement obj1=new RetryClickElement(driver);
 	public AddToCart(WebDriver driver) {
 		this.driver = driver;
@@ -21,6 +22,7 @@ public class AddToCart {
 	By dateSelect = By.xpath("(//*[@aria-label='Choose Date'])[1]");
 	By currentDate = By.xpath("//*[@aria-selected=\"true\"]");
 	By dayIsSunday = By.xpath("//*[contains(@aria-label,'Sunday') and @aria-disabled='false']");
+	By nextMonthPointer=By.xpath("(//*[@cursor='pointer'])[2]");
 	By closePopup = By.xpath("closeIconContainer");
 	By shopNow = By.xpath("//*[text()='Shop Now']");
 	By Bouquet1 = By.xpath("(//*[contains(@aria-label,'image')])[1]");
@@ -51,8 +53,41 @@ public class AddToCart {
 			driver.findElement(shopNow).click();
 			wait.until(ExpectedConditions.elementToBeClickable(dateSelect));
 			driver.findElement(dateSelect).click();
+			try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(dayIsSunday));
 			driver.findElement(dayIsSunday).click();
+			clickSucess=true;
+			}
+			catch(Exception e)
+			{
+				clickSucess=false;
+				if (clickSucess=false)
+				{
+					wait.until(ExpectedConditions.visibilityOfElementLocated(nextMonthPointer));
+					driver.findElement(nextMonthPointer).click();
+					wait.until(ExpectedConditions.visibilityOfElementLocated(dayIsSunday));
+					driver.findElement(dayIsSunday).click();
+					clickSucess=true;
+				}
+				else 
+				System.out.println("Exception occured because there are no sundays active for deliver in this month" + ""+e);
+			}
+			
+			/*if(clickSucess=false)
+			{
+			try
+			{
+				wait.until(ExpectedConditions.visibilityOfElementLocated(nextMonthPointer));
+				driver.findElement(nextMonthPointer).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(dayIsSunday));
+				driver.findElement(dayIsSunday).click();
+				clickSucess=true;
+			}
+			catch(Exception e)
+			{
+			 System.out.println("Exception occured while clicking sunday date"+"  "+e);
+			}
+			}*/
 		}
 		wait.until(ExpectedConditions.elementToBeClickable(shopNow));
 		driver.findElement(shopNow).click();
